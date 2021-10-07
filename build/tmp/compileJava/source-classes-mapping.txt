@@ -1,2 +1,6 @@
 EquationSolver.java
  EquationSolver
+PermissionManager.java
+ PermissionManager
+PermissionLevel.java
+ PermissionLevel
