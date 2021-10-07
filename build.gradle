@@ -1,5 +1,14 @@
 plugins {
     id 'java'
+    id "org.sonarqube" version "3.3"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "vuusale_bhos-qa-labs2"
+        property "sonar.organization", "vuusale"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 group 'org.example'
@@ -20,12 +29,4 @@ test {
 
 plugins {
     id "org.sonarqube" version "3.3"
-}
-
-sonarqube {
-    properties {
-        property "sonar.projectKey", "vuusale_bhos-qa-labs2"
-        property "sonar.organization", "vuusale"
-        property "sonar.host.url", "https://sonarcloud.io"
-    }
 }
