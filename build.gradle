@@ -26,7 +26,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-plugins {
-    id "org.sonarqube" version "3.3"
-}
