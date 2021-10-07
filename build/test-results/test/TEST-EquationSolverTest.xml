@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EquationSolverTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-10-07T12:48:18" hostname="DESKTOP-A592NH5" time="0.024">
+  <properties/>
+  <testcase name="Solution of simple quadratic equation" classname="EquationSolverTest" time="0.023"/>
+  <testcase name="Ensure correct handling of unexpected forms of equations" classname="EquationSolverTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
