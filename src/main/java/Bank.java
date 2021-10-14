@@ -12,7 +12,7 @@ public record Bank(String bankName) {
         for (int i = 0; i < 9; i++) {
             bin.append(rand.nextInt(10));
         }
-        bin.append(checkLuhn(bin.toString()));
+        bin.append(10 - checkLuhn(bin.toString()));
         return bin.toString();
     }
 
@@ -28,7 +28,7 @@ public record Bank(String bankName) {
             }
             temp += number;
         }
-        return 10 - temp % 10;
+        return temp % 10;
     }
 
     public BankCard issueCard(String fullName) {
