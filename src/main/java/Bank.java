@@ -1,19 +1,23 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 public record Bank(String bankName) {
-    private static final String[] bins = {"251621", "265423", "285433"};
+    private static final String[] bins = {"44930685916161","47465495098013","44080036909741","49254625961843","47122747363234"};
+    private static final HashMap<String, BankCard> cards = new HashMap<>();
     private static final List<Transaction> transactions = new ArrayList<>();
 
     public String generateLuhn() {
         Random rand = new Random();
-        StringBuilder bin = new StringBuilder(bins[rand.nextInt(bins.length)]);
-        for (int i = 0; i < 9; i++) {
-            bin.append(rand.nextInt(10));
+        String bin = bins[rand.nextInt(bins.length)];
+        for (int i = 10; i < 99; i++) {
+            String stringCardNumber = bin + i;
+            if (!cards.containsKey(stringCardNumber) && checkLuhn(stringCardNumber) == 0) {
+                return stringCardNumber;
+            }
         }
-        bin.append(10 - checkLuhn(bin.toString()));
-        return bin.toString();
+        return "Error";
     }
 
     public int checkLuhn(String pan) {
@@ -32,7 +36,9 @@ public record Bank(String bankName) {
     }
 
     public BankCard issueCard(String fullName) {
-        return new BankCard(generateLuhn(), fullName, 100.0);
+        BankCard newCard = new BankCard(generateLuhn(), fullName, 100.0);
+        cards.put(newCard.pan, newCard);
+        return newCard;
     }
 
     public TransactionStatus c2c(BankCard fromCard, BankCard toCard, double amount) {
