@@ -37,10 +37,10 @@ public record Bank(String bankName) {
 
     public TransactionStatus c2c(BankCard fromCard, BankCard toCard, double amount) {
         int error = 0;
-        if (amount < 1.0 & amount > 100) {
+        if (amount < 1.0 && amount > 100) {
             error = 1;
         }
-        if (fromCard == null | toCard == null) {
+        if (fromCard == null || toCard == null) {
             error = 1;
         }
         // if fromCard is null, below statement will throw error
