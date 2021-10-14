@@ -1,0 +1,4 @@
+# Coverage
+
+In the previous lab, I had a chance to learn about new topics of software testing: code coverage and branch coverage. According to my research, code coverage is a metric that determines how many lines of code are successfully validated under a test procedure. On the other hand, branch coverage indicates whether all branches in a codebase are exercised by tests. A "branch" is one of the possible execution paths the code can take after a decision such as an if statement.
+I applied the knowledge I collected by integrating a cloud-based code quality and security analysis tool into the repository - Sonar Cloud. All the new code I push to the codebase is analyzed by Sonar Cloud, outputing bugs and security issues found inside my code. Overall, Sonar Cloud helped me detect 4 bugs, 18 code smells, and 2 security hotspots in the project.
