@@ -11,7 +11,6 @@ public class Student {
         this.scholarBank = scholarBank;
         this.scholarCard = scholarBank.issueCard(this.fullName());
         this.password = MD5Utils.getMd5(password);
-        System.out.println(this.password + this.firstName);
     }
 
     public String fullName() {
