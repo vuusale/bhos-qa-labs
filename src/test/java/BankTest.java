@@ -37,7 +37,7 @@ public class BankTest {
     void testStudentTransfer() {
         Student student1 = new Student("William", "Shakespeare", bank, "williamwriter");
         Student student2 = new Student("Jane", "Austen", bank, "jane12");
-        assertEquals(TransactionStatus.SUCCESS, student1.transferMoney(student2, 100.0, "williamwriter"));
+        assertEquals(TransactionStatus.SUCCESS, student1.transferMoney(student2, 100.0, "williamwriter", "whoami"));
     }
 
     @Test
@@ -45,6 +45,6 @@ public class BankTest {
     void testWrongPassword() {
         Student student1 = new Student("William", "Shakespeare", bank, "williamwriter");
         Student student2 = new Student("Jane", "Austen", bank, "jane12");
-        assertEquals(TransactionStatus.FAILED, student1.transferMoney(student2, 100.0, "jane1"));
+        assertEquals(TransactionStatus.FAILED, student1.transferMoney(student2, 100.0, "jane1", "whoami"));
     }
 }
