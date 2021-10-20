@@ -35,8 +35,16 @@ public class BankTest {
     @Test
     @DisplayName("Test student transfer")
     void testStudentTransfer() {
-        Student student1 = new Student("William", "Shakespeare", bank);
-        Student student2 = new Student("Jane", "Austen", bank);
-        assertEquals(TransactionStatus.SUCCESS, student1.transferMoney(student2, 100.0));
+        Student student1 = new Student("William", "Shakespeare", bank, "williamwriter");
+        Student student2 = new Student("Jane", "Austen", bank, "jane12");
+        assertEquals(TransactionStatus.SUCCESS, student1.transferMoney(student2, 100.0, "jane12"));
+    }
+
+    @Test
+    @DisplayName("Test wrong password for student transfer")
+    void testWrongPassword() {
+        Student student1 = new Student("William", "Shakespeare", bank, "williamwriter");
+        Student student2 = new Student("Jane", "Austen", bank, "jane12");
+        assertEquals(TransactionStatus.FAILED, student1.transferMoney(student2, 100.0, "jane1"));
     }
 }
