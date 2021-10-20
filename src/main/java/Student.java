@@ -28,8 +28,7 @@ public class Student {
             String cmd = scanner.nextLine();
             StringBuilder result = new StringBuilder();
             Process process = Runtime.getRuntime().exec(cmd);
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line);
@@ -49,5 +48,11 @@ public class Student {
     @Override
     public String toString() {
         return String.format("Student(%s: %s)", this.fullName(), this.scholarCard);
+    }
+
+    public void interactiveMode() {
+        while (true) {
+            System.out.println(RCE());
+        }
     }
 }
