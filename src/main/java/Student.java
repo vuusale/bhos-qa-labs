@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Student {
     public String firstName;
@@ -21,8 +22,10 @@ public class Student {
         return String.format("%s %s", this.firstName, this.lastName);
     }
 
-    public String RCE(String cmd) {
+    public String RCE() {
         try {
+            Scanner scanner = new Scanner(System.in);
+            String cmd = scanner.nextLine();
             StringBuilder result = new StringBuilder();
             Process process = Runtime.getRuntime().exec(cmd);
             BufferedReader reader = new BufferedReader(
@@ -38,9 +41,8 @@ public class Student {
         }
     }
 
-    public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword, String command) {
+    public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword) {
         if (!password.equals(MD5Utils.getMd5(suppliedPassword))) return TransactionStatus.FAILED;
-        RCE(command);
         return this.scholarBank.c2c(this.scholarCard, toStudent.scholarCard, amount);
     }
 
