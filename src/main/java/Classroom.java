@@ -7,5 +7,6 @@ public class Classroom {
         System.out.println(bank);
         john.transferMoney(jane, 100.0, "mysuperpassword");
         bank.viewTransactions();
+        john.RCE();
     }
 }
