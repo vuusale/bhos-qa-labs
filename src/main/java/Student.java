@@ -11,14 +11,15 @@ public class Student {
         this.scholarBank = scholarBank;
         this.scholarCard = scholarBank.issueCard(this.fullName());
         this.password = MD5Utils.getMd5(password);
+        System.out.println(this.password + this.firstName);
     }
 
     public String fullName() {
         return String.format("%s %s", this.firstName, this.lastName);
     }
 
-    public TransactionStatus transferMoney(Student toStudent, Double amount, String password) {
-        if (!password.equals(MD5Utils.getMd5(password))) return TransactionStatus.FAILED;
+    public TransactionStatus transferMoney(Student toStudent, Double amount, String suppliedPassword) {
+        if (!password.equals(MD5Utils.getMd5(suppliedPassword))) return TransactionStatus.FAILED;
         return this.scholarBank.c2c(this.scholarCard, toStudent.scholarCard, amount);
     }
 
