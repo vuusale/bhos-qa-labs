@@ -45,6 +45,6 @@ public class TestFirebase {
                 builder.toUriString(), HttpMethod.GET, getRequest, String.class);
 
 //        assertEquals(getResponse.getBody(), dummy.toString());
-        assertEquals(1,1);
+        assertEquals(200, getResponse.getStatusCodeValue());
     }
 }
