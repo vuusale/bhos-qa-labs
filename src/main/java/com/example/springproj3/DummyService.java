@@ -29,11 +29,7 @@ public class DummyService {
 
         DocumentSnapshot document = future.get();
 
-        Dummy dummy = null;
-
         if(document.exists()) {
-//            dummy = document.toObject(Dummy.class);
-//            assert dummy != null;
             return Objects.requireNonNull(document.getData()).toString();
         } else {
             return null;

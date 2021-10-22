@@ -15,7 +15,7 @@ public class FirebaseInitialize {
     public void initialize() {
         try {
             FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(new ByteArrayInputStream(FIREBASE_CREDENTIALS.getBytes())))
+                    .setCredentials(GoogleCredentials.fromStream(new ByteArrayInputStream(System.getenv("FIREBASE_CREDENTIALS").getBytes())))
                     .setDatabaseUrl("https://bhos-qa-labs.firebaseio.com")
                     .build();
 
