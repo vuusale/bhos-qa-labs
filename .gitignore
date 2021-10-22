@@ -16,7 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-#bhos-qa-labs-firebase-adminsdk-ebidy-71fbaceed6.json
+bhos-qa-labs-firebase-adminsdk-ebidy-71fbaceed6.json
 
 ### IntelliJ IDEA ###
 .idea

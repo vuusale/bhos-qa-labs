@@ -26,7 +26,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'com.google.firebase:firebase-admin:6.12.2'
 	implementation 'junit:junit:4.13.1'
-	implementation 'org.json:json:20180813'
 }
 
 test {
