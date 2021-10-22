@@ -23,7 +23,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test with Gradle
-      run: ./gradlew test --tests "*" --stacktrace
+      run: ./gradlew test --tests "*" --scan
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
       with:
