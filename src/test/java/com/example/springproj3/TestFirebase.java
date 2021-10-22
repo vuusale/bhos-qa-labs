@@ -44,7 +44,7 @@ public class TestFirebase {
         ResponseEntity<String> getResponse = restTemplate.exchange(
                 builder.toUriString(), HttpMethod.GET, getRequest, String.class);
 
-        System.out.println(getRequest.getBody());
+        System.out.println(getRequest.getBody() + " I'm here");
 
         assertEquals(getResponse.getBody(), dummy.toString());
     }
