@@ -23,6 +23,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
+        env:
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
         run: ./gradlew test --tests "*"
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
