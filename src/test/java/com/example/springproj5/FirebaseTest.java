@@ -1,6 +1,7 @@
 package com.example.springproj5;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -32,21 +33,22 @@ public class FirebaseTest {
         return response.getBody();
     }
 
-    public String getUserDetails(String idToken) {
+    public String getUserDetails(String idToken, String userId) {
         headers.put("Authorization", Collections.singletonList("Bearer ".concat(idToken)));
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                ApiUrlConstants.FIRESTORE_USERS.concat(System.getenv("FIREBASE_USER_ID")), HttpMethod.GET, entity, String.class);
+                ApiUrlConstants.FIRESTORE_USERS.concat(userId), HttpMethod.GET, entity, String.class);
         return response.getBody();
     }
 
     @Test
-    public void endToEndTest() {
+    public void endToEndTest() throws JSONException {
         String responseBody = authenticate();
         JSONObject resBody = new JSONObject(responseBody);
         String idToken = (String) resBody.get("idToken");
-        String userDetails = new JSONObject(getUserDetails(idToken)).get("fields").toString();
+        String userId = (String) resBody.get("localId");
+        String userDetails = new JSONObject(getUserDetails(idToken, userId)).get("fields").toString();
         try {
             User user = new ObjectMapper().readValue(userDetails, User.class);
             assertTrue(true);
