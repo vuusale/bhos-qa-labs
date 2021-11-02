@@ -25,10 +25,11 @@ public class FirebaseTest {
         data.put("email", System.getenv("FIREBASE_EMAIL"));
         data.put("password", System.getenv("FIREBASE_PASSWORD"));
         data.put("returnSecureToken", true);
-        HttpEntity<String> entity = new HttpEntity<String>(data.toString(), headers);
+        HttpEntity<String> entity = new HttpEntity<>(data.toString(), headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
                 ApiUrlConstants.FIREBASE_SIGNIN_EMAIL_AND_PASSWORD.concat(System.getenv("FIREBASE_API_KEY")), HttpMethod.POST, entity, String.class);
+        
         return response.getBody();
     }
 
