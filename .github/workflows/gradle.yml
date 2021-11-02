@@ -22,6 +22,11 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Test with Gradle
+      env:
+        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        FIREBASE_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
+        FIREBASE_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
+        FIREBASE_USER_ID: ${{ secrets.FIREBASE_USER_ID }}
       run: ./gradlew test --tests "*"
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
@@ -39,9 +44,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-        FIREBASE_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
-        FIREBASE_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
-        FIREBASE_USER_ID: ${{ secrets.FIREBASE_USER_ID }}
 
       run: ./gradlew clean build sonarqube --info
