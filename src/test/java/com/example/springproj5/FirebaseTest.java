@@ -20,7 +20,7 @@ public class FirebaseTest {
 
     HttpHeaders headers = new HttpHeaders();
 
-    public String authenticate() throws AuthenticationException {
+    public String authenticate() throws AuthenticationException, NullPointerException {
         JSONObject data = new JSONObject();
         data.put("email", System.getenv("FIREBASE_EMAIL"));
         data.put("password", System.getenv("FIREBASE_PASSWORD"));
