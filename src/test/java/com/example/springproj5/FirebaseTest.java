@@ -60,25 +60,25 @@ public class FirebaseTest {
 
     public String uploadImage(String idToken, String filePath, String userId) throws IOException, InterruptedException {
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
-        String command = String.format("curl -k %s -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
+        String command = String.format("curl -k \"%s\" -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
 
         return executeCommand(command);
     }
 
     public void setAvatar(String idToken, String fileReference, String userId) throws IOException, InterruptedException {
-        String command = String.format("curl -k %s/%s?updateMask.fieldPaths=avatar -H \"Authorization: Bearer %s\" -X PATCH -d \"{\\\"fields\\\": {\\\"avatar\\\": {\\\"stringValue\\\": \\\"%s\\\"}}}\" -H \"Content-type: application/json\"", ApiUrlConstants.FIRESTORE_DOCUMENT, userId, idToken, fileReference);
+        String command = String.format("curl -k \"%s/%s?updateMask.fieldPaths=avatar\" -H \"Authorization: Bearer %s\" -X PATCH -d \"{\\\"fields\\\": {\\\"avatar\\\": {\\\"stringValue\\\": \\\"%s\\\"}}}\" -H \"Content-type: application/json\"", ApiUrlConstants.FIRESTORE_DOCUMENT, userId, idToken, fileReference);
         executeCommand(command);
     }
 
 
     public String getUserDetails(String idToken, String userId) throws IOException, InterruptedException {
-        String command = String.format("curl -k %s/%s -H \"Authorization: Bearer %s\"", ApiUrlConstants.FIRESTORE_DOCUMENT, userId, idToken);
+        String command = String.format("curl -k \"%s/%s\" -H \"Authorization: Bearer %s\"", ApiUrlConstants.FIRESTORE_DOCUMENT, userId, idToken);
         return executeCommand(command);
     }
 
     public boolean checkIfFileExist(String idToken, String fileReference) throws IOException, InterruptedException {
         String url = String.format("%s/%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, fileReference, System.getenv("FIREBASE_TOKEN"));
-        String command = String.format("curl -k %s -H \"Authorization: Bearer %s\" --output avatar_fetched.jpg", url, idToken);
+        String command = String.format("curl -k \"%s\" -H \"Authorization: Bearer %s\" --output avatar_fetched.jpg", url, idToken);
         executeCommand(command);
         byte[] f1 = Files.readAllBytes(Path.of(avatarFilename));
         byte[] f2 = Files.readAllBytes(Path.of("avatar_fetched.jpg"));
@@ -88,7 +88,6 @@ public class FirebaseTest {
     @Test
     public void endToEndTest() throws JSONException, IOException, InterruptedException {
 
-
         // Login and get authorization token
         String responseBody = authenticate();
         JSONObject resBody = new JSONObject(responseBody);
@@ -96,17 +95,16 @@ public class FirebaseTest {
         String userId = resBody.getString("localId");
 
         // Upload image to Firebase storage
-//        String uploadResult = uploadImage(idToken, avatarFilename, userId);
+        String uploadResult = uploadImage(idToken, avatarFilename, userId);
 
         // Get file reference out of response
-//        String fileReference = new JSONObject(uploadResult).getString("name");
-        String fileReference = "mflVdg0XgzXPtEs6bSjVImvmt173/avatar.jpg";
+        String fileReference = new JSONObject(uploadResult).getString("name");
+
         // Set avatar property in user document
         setAvatar(idToken, fileReference, userId);
 
         // Get image from storage based on avatar property
         String userDetailsResult = getUserDetails(idToken, userId);
-        executeCommand("curl https://2ecf-85-132-77-26.ngrok.io/ -H \"Header: "+userDetailsResult.replace(" ", "") + "\"");
         JSONObject userDetails = new JSONObject(userDetailsResult);
         JSONObject fields = userDetails.getJSONObject("fields");
         JSONObject avatar = fields.getJSONObject("avatar");
