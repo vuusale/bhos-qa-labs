@@ -106,7 +106,10 @@ public class FirebaseTest {
 
         // Get image from storage based on avatar property
         String userDetailsResult = getUserDetails(idToken, userId);
-        String avatarReference = new JSONObject(userDetailsResult).getJSONObject("fields").getJSONObject("avatar").getString("stringValue");
+        JSONObject userDetails = new JSONObject(userDetailsResult);
+        JSONObject fields = userDetails.getJSONObject("fields");
+        JSONObject avatar = fields.getJSONObject("avatar");
+        String avatarReference = avatar.getString("stringValue");
         String avatarReferenceUrlEncoded = URLEncoder.encode(avatarReference, StandardCharsets.UTF_8.toString());
 
         // Check if file with avatar reference exists and is the expected one
