@@ -1,59 +1,115 @@
 package com.example.springproj5;
 
-import com.google.api.client.util.IOUtils;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.*;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Iterator;
 
 public class HTTPUtil {
 
-    public static String get(String url, HttpHeaders headers) {
-        TestRestTemplate restTemplate = new TestRestTemplate();
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(
-                url, HttpMethod.GET, entity, String.class);
-        return response.getBody();
+    public static int check(String targetURL, String idToken) throws IOException {
+        URL url = new URL(targetURL);
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("GET");
+        http.setDoOutput(true);
+        http.setRequestProperty("Authorization", "Bearer " + idToken);
+
+        return http.getResponseCode();
     }
 
-    public static String post(String url, JSONObject data, HttpHeaders headers) {
-        TestRestTemplate restTemplate = new TestRestTemplate();
-        JSONObject postData = new JSONObject();
+    public static String get(String targetURL, String idToken) throws IOException {
+        URL url = new URL(targetURL);
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("GET");
+        http.setDoOutput(true);
+        http.setRequestProperty("Authorization", "Bearer " + idToken);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                http.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response.toString();
+    }
+
+    public static String post(String targetURL, JSONObject data) throws IOException, InterruptedException {
+        var values = new HashMap<String, String>();
+
         for (Iterator<String> it = data.keys(); it.hasNext(); ) {
             String key = it.next();
-            postData.put(key, data.get(key));
+            values.put(key, data.getString(key));
         }
-        HttpEntity<String> entity = new HttpEntity<>(data.toString(), headers);
-        ResponseEntity<String> response = restTemplate.exchange(
-                url, HttpMethod.POST, entity, String.class);
-        return response.getBody();
+        var objectMapper = new ObjectMapper();
+        String requestBody = objectMapper
+                .writeValueAsString(values);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(targetURL))
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response = client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+
+        return response.body();
     }
 
+    public static void patch(String targetURL, String idToken, String data) throws IOException, InterruptedException {
+        URL url = new URL(targetURL);
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+        http.setRequestMethod("POST");
+        http.setDoOutput(true);
+        http.setRequestProperty("Content-Type", "application/json");
+        http.setRequestProperty("Authorization", "Bearer " + idToken);
 
-    public static String uploadFile(String url, String idToken) throws IOException {
-        TestRestTemplate restTemplate = new TestRestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(idToken);
-        headers.setContentType(MediaType.IMAGE_JPEG);
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
 
-        Resource res = new InputStreamResource(new FileInputStream("avatar.jpg"));
+        OutputStream stream = http.getOutputStream();
+        stream.write(out);
 
-        HttpEntity<Resource> entity = new HttpEntity<>(res, headers);
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        String response = http.getResponseMessage();
+        http.disconnect();
+    }
 
-        return response.getBody();
+    public static String uploadFile(String targetUrl, String idToken, String filePath) throws IOException, InterruptedException {
+        String requestBody = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            requestBody = sb.toString();
+        }
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(targetUrl))
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Authorization", "Bearer " + idToken)
+                .build();
+
+        HttpResponse<String> response = client.send(request,
+                HttpResponse.BodyHandlers.ofString());
+        return response.body();
     }
 }
