@@ -35,6 +35,10 @@ public class HTTPUtil {
         http.setDoOutput(true);
         http.setRequestProperty("Authorization", "Bearer " + idToken);
 
+        if (http.getResponseCode() == 403) {
+            return "Forbidden";
+        }
+
         BufferedReader in = new BufferedReader(new InputStreamReader(
                 http.getInputStream()));
         String inputLine;
