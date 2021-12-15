@@ -10,4 +10,13 @@ Within the scope of User Acceptance Testing I performed on ABB mobile applicatio
 
 "PIN (access code of application) change" was not tested in this UAT test because screen PIN is also the password used to login to the account. There is no distinction between screen password and account password.
 
-To be continued...
+#### UAT test statistics
+- Total:
+- Passed:
+- Blocked:
+- Failed:
+
+#### Application specifications
+- Name:
+- Release:
+- Sha256:
