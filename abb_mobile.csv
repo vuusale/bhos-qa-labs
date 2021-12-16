@@ -1,0 +1,113 @@
+﻿sep=,
+"ID","Title","Automation Type","Created By","Created On","Estimate","Expected Result","Forecast","Goals","Mission","Preconditions","Priority","References","Section","Section Depth","Section Description","Section Hierarchy","Steps","Steps","Steps (Additional Info)","Steps (Expected Result)","Steps (References)","Steps (Shared step ID)","Steps (Step)","Suite","Suite ID","Template","Type","Updated By","Updated On"
+"C1","Register with FIN"," None","Vusala Alakbarova","12/15/2021 6:24 AM","","","","","","Android phone
+Internet connection
+SIM card
+ABB card
+","Critical","","Registration","0","Test cases related to registration","Registration","Click ""ABB müştərisiyəm"" button
+Expected Result:
+FIN input field is shown, with ""kart"" tab on the top
+Type FIN
+Expected Result:
+Number field is shown with (+994) prefix filled
+Type telephone number
+Expected Result:
+OTP message is sent and OTP field is shown
+Type correct OTP
+Expected Result:
+Buttons are shown to set 4-digit PIN password
+Set PIN password
+Expected Result:
+Fingerprint enable screen is shown
+Scan your finger
+Expected Result:
+Application is opened","","","FIN input field is shown, with ""kart"" tab on the top
+Number field is shown with (+994) prefix filled
+OTP message is sent and OTP field is shown
+Buttons are shown to set 4-digit PIN password
+Fingerprint enable screen is shown
+Application is opened","","","Click ""ABB müştərisiyəm"" button
+Type FIN
+Type telephone number
+Type correct OTP
+Set PIN password
+Scan your finger","Master","S1","Test Case (Steps)","Acceptance","Vusala Alakbarova","12/15/2021 7:03 PM"
+"C4","Register with card PAN"," None","Vusala Alakbarova","12/15/2021 6:56 PM","","","","","","Android phone
+Internet connection
+SIM card
+ABB card
+","Critical","","Registration","0","Test cases related to registration","Registration","Click ""ABB müştərisiyəm"" button
+Expected Result:
+FIN input field is shown, with ""kart"" tab on the top
+Click ""kart"" tab
+Expected Result:
+Input field for PAN is shown
+Type valid card PAN
+Expected Result:
+Number field is shown with (+994) prefix filled
+
+Type telephone number
+Expected Result:
+OTP message is sent and OTP field is shown
+Type correct OTP
+Expected Result:
+Buttons are shown to set 4-digit PIN password
+Set PIN password
+Expected Result:
+Fingerprint enable screen is shown
+Scan your finger
+Expected Result:
+Application is opened","","","FIN input field is shown, with ""kart"" tab on the top
+Input field for PAN is shown
+Number field is shown with (+994) prefix filled
+
+OTP message is sent and OTP field is shown
+Buttons are shown to set 4-digit PIN password
+Fingerprint enable screen is shown
+Application is opened","","","Click ""ABB müştərisiyəm"" button
+Click ""kart"" tab
+Type valid card PAN
+Type telephone number
+Type correct OTP
+Set PIN password
+Scan your finger","Master","S1","Test Case (Steps)","Acceptance","Vusala Alakbarova","12/15/2021 7:03 PM"
+"C5","Ohter card's PAN"," None","Vusala Alakbarova","12/15/2021 6:57 PM","","","","","","Android phone
+Internet connection
+SIM card","Medium","","Registration","0","Test cases related to registration","Registration","Click ""ABB müştərisiyəm"" button
+Expected Result:
+FIN input field is shown, with ""kart"" tab on the top
+Click ""kart"" tab
+Expected Result:
+Input field for PAN is shown
+Type valid card PAN but not owned by you
+Expected Result:
+Number field is shown with (+994) prefix filled
+
+Type telephone number
+Expected Result:
+Error is shown saying ""Wrong identification details""","","","FIN input field is shown, with ""kart"" tab on the top
+Input field for PAN is shown
+Number field is shown with (+994) prefix filled
+
+Error is shown saying ""Wrong identification details""","","","Click ""ABB müştərisiyəm"" button
+Click ""kart"" tab
+Type valid card PAN but not owned by you
+Type telephone number","Master","S1","Test Case (Steps)","Acceptance","Vusala Alakbarova","12/15/2021 7:13 PM"
+"C6","Invalid card PAN not satisfying Luhn algorithm"," None","Vusala Alakbarova","12/15/2021 7:09 PM","","","","","","Android phone
+Internet connection
+SIM card
+ABB card","Medium","","Registration","0","Test cases related to registration","Registration","Click ""ABB müştərisiyəm"" button
+Expected Result:
+FIN input field is shown, with ""kart"" tab on the top
+Click ""kart"" tab
+Expected Result:
+Input field for PAN is shown
+Type invalid card PAN
+Expected Result:
+Frontend validates input with Luhn algorithm and does not enable ""Davam et"" button","","","FIN input field is shown, with ""kart"" tab on the top
+Input field for PAN is shown
+Frontend validates input with Luhn algorithm and does not enable ""Davam et"" button","","","Click ""ABB müştərisiyəm"" button
+Click ""kart"" tab
+Type invalid card PAN","Master","S1","Test Case (Steps)","Acceptance","Vusala Alakbarova","12/15/2021 7:13 PM"
+"C2","Workflow"," None","Vusala Alakbarova","12/15/2021 6:31 AM","","","","","","","Medium","","OTP process","0","Test cases related to OTP process","OTP process","","","","","","","","Master","S1","Test Case (Text)","Other","Vusala Alakbarova","12/15/2021 6:31 AM"
+"C3","Wrong OTP"," None","Vusala Alakbarova","12/15/2021 6:31 AM","","","","","","","Medium","","OTP process","0","Test cases related to OTP process","OTP process","","","","","","","","Master","S1","Test Case (Text)","Other","Vusala Alakbarova","12/15/2021 6:31 AM"
